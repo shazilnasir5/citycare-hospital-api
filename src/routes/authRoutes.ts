@@ -97,6 +97,17 @@ router.post("/register", async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Registration error:", error);
 
+    // Handle SQLite duplicate email constraint error
+    if (
+      error instanceof Error &&
+      error.message.includes("UNIQUE constraint failed: users.email")
+    ) {
+      return res.status(409).json({
+        success: false,
+        message: "Email already registered"
+      });
+    }
+
     return res.status(500).json({
       success: false,
       message: "Registration failed"
