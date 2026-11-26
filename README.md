@@ -1,13 +1,14 @@
+# CityCare Hospital – Authentication System
 
-# CityCare Hospital - Authentication System
+A simple authentication system developed for CityCare Hospital as part of the Ezitech Full Stack Development internship task.
 
-A simple authentication system built for CityCare Hospital using Node.js, TypeScript, Express, and SQLite.
+The project provides user registration, login, and protected profile access using Node.js, TypeScript, Express, and SQLite.
 
 ## Project Overview
 
-This project provides user registration and login functionality with secure password hashing and JWT-based authentication.
+This application allows users to create an account and log in securely. It uses bcrypt for password hashing and JSON Web Tokens (JWT) to authenticate users when accessing protected routes.
 
-It also includes a simple HTML, CSS, and JavaScript frontend connected to the backend API.
+A simple frontend built with HTML, CSS, and JavaScript is also included to interact with the backend API.
 
 ## Technologies Used
 
@@ -24,22 +25,21 @@ It also includes a simple HTML, CSS, and JavaScript frontend connected to the ba
 
 ## Features
 
-- User registration
-- User login
-- Password hashing using bcrypt
-- JWT token generation
-- JWT authentication middleware
+- User registration and login
+- Password hashing with bcrypt
+- JWT-based authentication
 - Protected user profile endpoint
-- SQLite database for persistent storage
+- SQLite database for storing user information
 - Input validation
 - Duplicate email detection
-- Login error handling
+- Proper HTTP status codes and error handling
 - Simple responsive frontend
+- Login and registration forms
 
 ## Project Structure
 
 ```text
-auth-system/
+citycare-hospital-api/
 │
 ├── public/
 │   ├── index.html
@@ -65,29 +65,29 @@ auth-system/
 └── tsconfig.json
 ```
 
-## Installation
+## Getting Started
 
-### 1. Clone the repository
-
-```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
-```
-
-### 2. Open the project folder
+### 1. Clone the Repository
 
 ```bash
-cd auth-system
+git clone https://github.com/shazilnasir5/citycare-hospital-api.git
 ```
 
-### 3. Install dependencies
+### 2. Open the Project Folder
+
+```bash
+cd citycare-hospital-api
+```
+
+### 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 4. Configure environment variables
+### 4. Configure Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file in the root directory and add:
 
 ```env
 PORT=3000
@@ -95,15 +95,17 @@ JWT_SECRET=your_secure_secret_key
 JWT_EXPIRES_IN=1h
 ```
 
-Use your own secure JWT secret.
+Replace `your_secure_secret_key` with your own secure secret.
 
-### 5. Start the server
+Keep the `.env` file private. It is excluded from Git using `.gitignore`.
+
+### 5. Start the Server
 
 ```bash
 npx tsx src/server.ts
 ```
 
-The server will run at:
+Once the server starts, open:
 
 http://localhost:3000
 
@@ -111,30 +113,46 @@ http://localhost:3000
 
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | /api/auth/register | Register a new user |
-| POST | /api/auth/login | Login user |
-| GET | /api/auth/profile | Get authenticated user profile |
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Log in an existing user |
+| GET | `/api/auth/profile` | Retrieve the authenticated user's profile |
+
+### Authentication
+
+The profile endpoint is protected by JWT middleware.
+
+To access it, include the token in the request header:
+
+```text
+Authorization: Bearer YOUR_JWT_TOKEN
+```
 
 ## API Testing
 
-The API endpoints were tested using Postman.
+The API was tested using Postman.
 
-- Registration returns HTTP 201.
-- Successful login returns HTTP 200 and a JWT token.
-- Duplicate email registration is rejected.
-- Invalid login credentials are rejected.
-- Protected profile endpoint requires a valid JWT token.
+The following functionality was checked:
+
+- Registration successfully creates a user and returns HTTP 201.
+- Successful login returns HTTP 200 with a JWT token.
+- Duplicate email registration returns HTTP 409.
+- Invalid login credentials return an error response.
+- The profile endpoint requires a valid JWT token.
 
 ## Security
 
-- Passwords are hashed using bcrypt.
-- JWT tokens are used for authentication.
-- Protected routes verify JWT tokens.
-- Environment variables are stored in `.env`.
-- Sensitive files are excluded using `.gitignore`.
+- Passwords are hashed before being stored in SQLite.
+- JWT tokens are used to authenticate protected requests.
+- Protected routes verify the provided token.
+- Input validation is performed on registration and login.
+- Duplicate email addresses are prevented using a database constraint.
+- Environment variables and database files are excluded from Git.
 
 ## Project Status
 
-Task 1 - Project Bootstrap and User Authentication.
+**Task 1 – Project Bootstrap and User Authentication**
 
-Developed as part of the Full Stack Development internship task at Ezitech.
+Completed as part of the Full Stack Development internship at Ezitech.
+
+GitHub Repository:  
+https://github.com/shazilnasir5/citycare-hospital-api
