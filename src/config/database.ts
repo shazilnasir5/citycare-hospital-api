@@ -22,8 +22,27 @@ db.exec(`
   )
 `);
 
-console.log("SQLite database connected successfully!");
 console.log("Users table is ready!");
+
+// Create patients table
+db.exec(`
+  CREATE TABLE IF NOT EXISTS patients (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    date_of_birth TEXT NOT NULL,
+    gender TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT,
+    address TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
+console.log("Patients table is ready!");
+
+console.log("SQLite database connected successfully!");
 
 // Export database
 export { db };
